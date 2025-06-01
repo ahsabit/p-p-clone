@@ -1,6 +1,8 @@
 import Link from "next/link"
 import { MaxWidthWrapper } from "@/components/max-width-wrapper"
-import { SignOutButton } from "@clerk/nextjs"
+import { SignIn, SignOutButton } from "@clerk/nextjs"
+import { Button, buttonVariants } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 
 export const Navbar = () => {
     const user = false
@@ -10,16 +12,59 @@ export const Navbar = () => {
             <MaxWidthWrapper>
                 <div className="flex h-16 items-center justify-between">
                     <Link href="/" className="flex z-40 font-semibold">
-                    Ping<span className="text-brand-700">Panda</span></Link>
-                </div>
-                <div className="h-full flex items-center space-x-4">
-                    {user ? (
-                        <>
-                            <SignOutButton>
-                                <button></button>
-                            </SignOutButton>
-                        </>
-                        ) : null}
+                        Ping<span className="text-brand-700">Panda</span>
+                    </Link>
+                    <div className="h-full flex items-center space-x-4">
+                        {user ? (
+                            <>
+                                <SignOutButton>
+                                    <Button className="sm" variant="ghost">Sign out</Button>
+                                </SignOutButton>
+                                <Link
+                                    href="/dashboard"
+                                    className={buttonVariants({
+                                        size: "sm",
+                                        className: "hidden sm:flex itmes-center gap-1",
+                                    })}
+                                >
+                                    Dashboard <ArrowRight className="ml-1.5 size-4"/>
+                                </Link>
+                            </>
+                            ) : (
+                                <>
+                                    <Link
+                                        href="/dashboard"
+                                        className={buttonVariants({
+                                            size: "sm",
+                                            variant: "ghost",
+                                        })}
+                                    >
+                                        Princing
+                                    </Link>
+                                    <Link
+                                        href="/sign-in"
+                                        className={buttonVariants({
+                                            size: "sm",
+                                            variant: "ghost",
+                                        })}
+                                    >
+                                        Sign in
+                                    </Link>
+
+                                    <div className="h-8 w-px bg-gray-200"/>
+
+                                    <Link
+                                        href="/sign-up"
+                                        className={buttonVariants({
+                                            size: "sm",
+                                            className: "flex items-center gap-1.5",
+                                        })}
+                                    >
+                                        Sign up <ArrowRight className="ml-1.5 size-4"/>
+                                    </Link>
+                                </>
+                            )}
+                    </div>
                 </div>
             </MaxWidthWrapper>
         </nav>
